@@ -6,7 +6,7 @@
 /*   By: enchevri <enchevri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 13:55:29 by enchevri          #+#    #+#             */
-/*   Updated: 2024/12/05 14:19:36 by enchevri         ###   ########.fr       */
+/*   Updated: 2024/12/09 20:12:36 by enchevri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@ int	main(int argc, char **argv)
 {
 	int		fd;
 	char	*str;
+	int		i;
 
+	i = 1;
 	if (argc < 2)
 	{
 		printf("No args");
@@ -30,8 +32,13 @@ int	main(int argc, char **argv)
 	}
 	while ((str = get_next_line(fd)) != NULL)
 	{
-		printf("%s", str);
+		printf("%d :%s", i, str);
+		i++;
 		free(str);
+		if (i > 20)
+		{
+			return (1);
+		}
 	}
 	close(fd);
 	return (0);

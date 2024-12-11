@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: enchevri <enchevri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/05 13:46:47 by enchevri          #+#    #+#             */
-/*   Updated: 2024/12/05 14:23:52 by enchevri         ###   ########.fr       */
+/*   Created: 2024/12/11 10:14:04 by enchevri          #+#    #+#             */
+/*   Updated: 2024/12/11 12:48:03 by enchevri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,20 @@
 
 char	*get_next_line(int fd)
 {
-	int		i;
 	static char	buf[BUFFER_SIZE + 1];
-	int		bytes_read;
+	int			bytes_read;
+	char		*str;
 
-	i = 0;
-	while (buf[i] && buf[i] != '\n')
+	while (bytes_read != 0)
 	{
-		i++;
+		bytes_read = read(fd, buf, BUFFER_SIZE);
+		if (ft_strchr(buf) != 0)
+		{
+			str = ft_strjoin(str, buf, ft_strchr(buf));
+		}
+		else if ()
+		{
+			str = ft_strlcat(str, buf, ft_strlen(buf));
+		}
 	}
-	bytes_read = read(fd, buf, BUFFER_SIZE);
-	if (bytes_read < 0)
-		return (NULL);
-	buf[bytes_read] = '\0';
-    // printf("%d", bytes_read);
 }
