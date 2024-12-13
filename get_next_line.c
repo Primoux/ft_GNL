@@ -6,7 +6,7 @@
 /*   By: enchevri <enchevri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 10:14:04 by enchevri          #+#    #+#             */
-/*   Updated: 2024/12/13 15:55:53 by enchevri         ###   ########.fr       */
+/*   Updated: 2024/12/13 19:03:48 by enchevri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,25 +36,21 @@ char	*create_line(char *str, char *buf)
 		i++;
 	if (buf[i] == '\n')
 		i++;
-	tab = malloc((ft_strlen(str) + i + 1) * sizeof(char));
-	if (!tab)
-		return (NULL);
-	while (str[j])
-	{
-		tab[j] = str[j];
-		j++;
-	}
-	while (x < i && buf[x])
-	{
-		tab[j + x] = buf[x];
-		x++;
-	}
+	
 	free(str);
 	if (buf[i] == '\n')
+	{
 		tab[j + i] = '\n';
-	tab[j + i + 1] = '\0';
+		tab[j + i + 1] = '\0';
+	}
+	else
+	{
+		tab[j + i] = '\0';
+	}
 	return (tab);
 }
+
+
 
 void	move_buf(char *buf)
 {
@@ -76,33 +72,24 @@ char	*get_next_line(int fd)
 	static char	buf[BUFFER_SIZE + 1] = {0};
 	int			bytes_read;
 	char		*str;
-	int			i;
 
-	i = 0;
 	if (BUFFER_SIZE <= 0)
 		return (NULL);
-	// str = malloc(1);
-	// str[0] = 0;
-	str = strdup("");
+	str = malloc(1);
+	str[0] = 0;
 	bytes_read = 1;
 	while (ft_strchr_nl(buf) == NULL && bytes_read != 0)
 	{
-		printf("%dx : buf at start : '%s'\n", i, buf);
-		printf("%dx : str at start : '%s'\n", i, str);
 		if (buf[0])
 		{
 			str = ft_strjoin(str, buf);
 			ft_bzero(buf, ft_strlen(buf), 0);
 		}
-		printf("%dx : buf at end   : '%s'\n", i, buf);
-		printf("%dx : str at end   : '%s'\n", i, str);
-		printf("----------------------------------------\n");
 		bytes_read = read(fd, buf, BUFFER_SIZE);
 		buf[bytes_read] = '\0';
-		i++;
 	}
 	if (bytes_read == 0 && buf[0] == 0)
-		return (NULL);
+		return (free(str), NULL);
 	str = create_line(str, buf);
 	move_buf(buf);
 	return (str);

@@ -6,7 +6,7 @@
 /*   By: enchevri <enchevri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 10:14:01 by enchevri          #+#    #+#             */
-/*   Updated: 2024/12/13 16:00:09 by enchevri         ###   ########.fr       */
+/*   Updated: 2024/12/13 18:48:58 by enchevri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,6 @@ char	*ft_strjoin(char *s1, char *s2)
 
 	i = 0;
 	x = 0;
-	printf("%zu x : str in strjoin at start   : '%s'\n", i, s1);
-	printf("%zu x : buf in strjoin at start   : '%s'\n", i, s2);
 	if (!s1 || !s2)
 		return (NULL);
 	tab = malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
@@ -81,17 +79,12 @@ char	*ft_strjoin(char *s1, char *s2)
 		x++;
 	}
 	i = 0;
-	printf("%zu x : str in strjoin at mid   : '%s'\n", i, s1);
-	printf("%zu x : buf in strjoin at mid   : '%s'\n", i, s2);
 	while (s2[i])
 	{
 		tab[x] = s2[i++];
 		x++;
 	}
-	printf("%zu x : str in strjoin at end   : '%s'\n", i, s1);
-	printf("%zu x : buf in strjoin at end   : '%s'\n", i, s2);
 	free(s1);
 	tab[x] = '\0';
-	printf("%zu x : tab in strjoin at end   : '%s'\n", i, tab);
 	return (tab);
 }
