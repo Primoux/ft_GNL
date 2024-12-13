@@ -6,7 +6,7 @@
 /*   By: enchevri <enchevri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 10:14:01 by enchevri          #+#    #+#             */
-/*   Updated: 2024/12/11 20:06:49 by enchevri         ###   ########.fr       */
+/*   Updated: 2024/12/13 16:00:09 by enchevri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	*ft_strchr_nl(char *s)
 		}
 		i++;
 	}
-	return (0);
+	return (NULL);
 }
 
 void	*ft_memmove(void *dest, const void *src, size_t size)
@@ -68,6 +68,8 @@ char	*ft_strjoin(char *s1, char *s2)
 
 	i = 0;
 	x = 0;
+	printf("%zu x : str in strjoin at start   : '%s'\n", i, s1);
+	printf("%zu x : buf in strjoin at start   : '%s'\n", i, s2);
 	if (!s1 || !s2)
 		return (NULL);
 	tab = malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
@@ -79,31 +81,17 @@ char	*ft_strjoin(char *s1, char *s2)
 		x++;
 	}
 	i = 0;
+	printf("%zu x : str in strjoin at mid   : '%s'\n", i, s1);
+	printf("%zu x : buf in strjoin at mid   : '%s'\n", i, s2);
 	while (s2[i])
 	{
 		tab[x] = s2[i++];
 		x++;
 	}
+	printf("%zu x : str in strjoin at end   : '%s'\n", i, s1);
+	printf("%zu x : buf in strjoin at end   : '%s'\n", i, s2);
 	free(s1);
-	tab[x + 1] = '\0';
-	return (tab);
-}
-
-char	*ft_strdup(char *src)
-{
-	size_t	len;
-	char	*tab;
-	size_t	i;
-
-	i = 0;
-	len = ft_strlen(src);
-	tab = malloc(len + 1 * sizeof(char));
-	if (tab == NULL)
-		return (NULL);
-	while (i < len)
-	{
-		((unsigned char *)tab)[i] = ((unsigned char *)src)[i];
-		i++;
-	}
+	tab[x] = '\0';
+	printf("%zu x : tab in strjoin at end   : '%s'\n", i, tab);
 	return (tab);
 }

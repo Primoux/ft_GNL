@@ -6,7 +6,7 @@
 /*   By: enchevri <enchevri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 14:47:27 by maximart          #+#    #+#             */
-/*   Updated: 2024/12/11 20:06:58 by enchevri         ###   ########.fr       */
+/*   Updated: 2024/12/13 15:55:02 by enchevri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <stdlib.h>
 # include <unistd.h>
 
+# include <string.h>
+
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
 # endif
@@ -27,6 +29,5 @@ char	*ft_strchr_nl(char *s);
 void	*ft_memmove(void *dest, const void *src, size_t size);
 size_t	ft_strlen(char *s);
 char	*ft_strjoin(char *s1, char *s2);
-char	*ft_strdup(char *source);
 
 #endif
