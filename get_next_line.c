@@ -6,7 +6,7 @@
 /*   By: enchevri <enchevri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 10:14:04 by enchevri          #+#    #+#             */
-/*   Updated: 2024/12/14 17:17:05 by enchevri         ###   ########.fr       */
+/*   Updated: 2024/12/14 19:39:22 by enchevri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	move_buf(char *buf)
 char	*get_next_line(int fd)
 {
 	static char	buf[BUFFER_SIZE + 1] = {0};
-	ssize_t			bytes_read;
+	ssize_t		bytes_read;
 	char		*str;
 
 	if (BUFFER_SIZE <= 0 || fd < 0)
@@ -81,7 +81,7 @@ char	*get_next_line(int fd)
 	str = malloc(1);
 	str[0] = 0;
 	bytes_read = 1;
-	while (ft_strchr_nl(buf) == NULL && bytes_read != 0)
+	while (ft_strchr_nl(buf) == NULL && bytes_read && bytes_read != -1)
 	{
 		if (buf[0])
 		{
@@ -91,7 +91,7 @@ char	*get_next_line(int fd)
 		bytes_read = read(fd, buf, BUFFER_SIZE);
 		buf[bytes_read] = '\0';
 	}
-	if (bytes_read == 0 && buf[0] == 0 && str[0] == 0)
+	if (bytes_read <= 0 && buf[0] == 0 && str[0] == 0)
 		return (free(str), NULL);
 	str = create_line(str, buf);
 	move_buf(buf);

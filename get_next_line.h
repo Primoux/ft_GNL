@@ -6,7 +6,7 @@
 /*   By: enchevri <enchevri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 14:47:27 by maximart          #+#    #+#             */
-/*   Updated: 2024/12/13 15:55:02 by enchevri         ###   ########.fr       */
+/*   Updated: 2024/12/14 18:36:09 by enchevri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 
 char	*get_next_line(int fd);
 char	*ft_strchr_nl(char *s);
-void	*ft_memmove(void *dest, const void *src, size_t size);
+char	*ft_memmove(char *dest, const char *src, size_t size);
 size_t	ft_strlen(char *s);
 char	*ft_strjoin(char *s1, char *s2);
 
