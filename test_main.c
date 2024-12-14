@@ -6,7 +6,7 @@
 /*   By: enchevri <enchevri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 13:55:29 by enchevri          #+#    #+#             */
-/*   Updated: 2024/12/13 18:54:11 by enchevri         ###   ########.fr       */
+/*   Updated: 2024/12/14 17:09:50 by enchevri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,27 +19,22 @@ int	main(void)
 	int		i;
 
 	i = 1;
-	fd = open("test2.txt", O_RDONLY);
-	if (fd == -1)
-	{
-		perror("Error opening file");
-		return (1);
-	}
+	fd = open("test1.txt", O_RDONLY);
 	str = get_next_line(fd);
 	printf("LIGNE 1 :'%s'\n", str);
 	free(str);
-	// str = get_next_line(fd);
-	// printf("LIGNE 2 :'%s'\n", str);
-	// free(str);
-	// str = get_next_line(fd);
-	// printf("LIGNE 3 :'%s'\n", str);
-	// free(str);
-	// str = get_next_line(fd);
-	// printf("LIGNE 4 :'%s'\n", str);
-	// free(str);
-	// str = get_next_line(fd);
-	// printf("LIGNE 5 :'%s'\n", str);
-	// free(str);
+	str = get_next_line(fd);
+	printf("LIGNE 2 :'%s'\n", str);
+	free(str);
+	str = get_next_line(fd);
+	printf("LIGNE 3 :'%s'\n", str);
+	free(str);
+	str = get_next_line(fd);
+	printf("LIGNE 4 :'%s'\n", str);
+	free(str);
+	str = get_next_line(fd);
+	printf("LIGNE 5 :'%s'\n", str);
+	free(str);
 	close(fd);
 	return (0);
 }
