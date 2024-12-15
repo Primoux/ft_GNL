@@ -6,7 +6,7 @@
 /*   By: enchevri <enchevri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 10:14:01 by enchevri          #+#    #+#             */
-/*   Updated: 2024/12/13 18:48:58 by enchevri         ###   ########.fr       */
+/*   Updated: 2024/12/14 18:35:41 by enchevri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*ft_strchr_nl(char *s)
 	return (NULL);
 }
 
-void	*ft_memmove(void *dest, const void *src, size_t size)
+char	*ft_memmove(char *dest, const char *src, size_t size)
 {
 	size_t	i;
 
@@ -50,16 +50,19 @@ void	*ft_memmove(void *dest, const void *src, size_t size)
 	if (dest > src)
 	{
 		while (size-- > 0)
-			((unsigned char *)dest)[size] = ((unsigned char *)src)[size];
+			(dest)[size] = (src)[size];
 	}
 	else
+	{
 		while (i < size)
 		{
-			((unsigned char *)dest)[i] = ((unsigned char *)src)[i];
+			(dest)[i] = (src)[i];
 			i++;
 		}
+	}
 	return (dest);
 }
+
 char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*tab;
