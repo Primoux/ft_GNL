@@ -6,7 +6,7 @@
 /*   By: enchevri <enchevri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 10:14:01 by enchevri          #+#    #+#             */
-/*   Updated: 2024/12/15 12:02:00 by enchevri         ###   ########.fr       */
+/*   Updated: 2024/12/15 16:12:27 by enchevri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,35 +61,6 @@ char	*ft_memmove(char *dest, const char *src, size_t size)
 		}
 	}
 	return (dest);
-}
-
-char	*ft_strjoin(char *s1, char *s2)
-{
-	char	*tab;
-	size_t	i;
-	size_t	x;
-
-	i = 0;
-	x = 0;
-	if (!s1 || !s2)
-		return (NULL);
-	tab = malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
-	if (tab == NULL)
-		return (NULL);
-	while (s1[i])
-	{
-		tab[x] = s1[i++];
-		x++;
-	}
-	free(s1);
-	i = 0;
-	while (s2[i])
-	{
-		tab[x] = s2[i++];
-		x++;
-	}
-	tab[x] = '\0';
-	return (tab);
 }
 
 char	*create_malloc(void)

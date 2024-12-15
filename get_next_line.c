@@ -6,7 +6,7 @@
 /*   By: enchevri <enchevri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 10:14:04 by enchevri          #+#    #+#             */
-/*   Updated: 2024/12/15 12:16:07 by enchevri         ###   ########.fr       */
+/*   Updated: 2024/12/15 19:57:38 by enchevri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	fill_tab(char *str, char *buf, char *tab)
 
 	i = 0;
 	j = 0;
+	if (!str || !buf || !tab)
+		return ;
 	while (str[j])
 	{
 		tab[j] = str[j];
@@ -40,14 +42,14 @@ void	fill_tab(char *str, char *buf, char *tab)
 		tab[j] = buf[i++];
 		j++;
 	}
-	free(str);
 	if (buf[i] == '\n')
 	{
 		tab[j] = '\n';
 		tab[j + 1] = '\0';
 	}
 	else
-		tab[j + i] = '\0';
+		tab[j] = '\0';
+	free(str);
 }
 
 char	*create_line(char *str, char *buf)
@@ -56,9 +58,19 @@ char	*create_line(char *str, char *buf)
 	char	*tab;
 
 	i = 0;
+	tab = NULL;
+	if (!str || !buf)
+		return (free(str), NULL);
 	while (buf[i] != '\n' && buf[i])
 		i++;
-	tab = malloc((ft_strlen(str) + i + 2) * sizeof(char));
+	if (buf[i] == '\n')
+	{
+		printf("'%zu'", i);
+		i++;
+	}
+	tab = malloc((ft_strlen(str) + i + 1) * sizeof(char));
+	if (!tab)
+		return (free(str), NULL);
 	fill_tab(str, buf, tab);
 	return (tab);
 }
@@ -88,13 +100,11 @@ char	*get_next_line(int fd)
 	if (BUFFER_SIZE <= 0 || fd < 0 || !str)
 		return (free(str), NULL);
 	bytes_read = 1;
-	while (ft_strchr_nl(buf) == 0 && bytes_read && bytes_read != -1)
+	while (ft_strchr_nl(buf) == 0 && bytes_read > 0)
 	{
 		if (buf[0])
 		{
-			str = ft_strjoin(str, buf);
-			if (!str)
-				return (free(str), NULL);
+			str = create_line(str, buf);
 			ft_bzero(buf, ft_strlen(buf), 0);
 		}
 		bytes_read = read(fd, buf, BUFFER_SIZE);
@@ -105,6 +115,5 @@ char	*get_next_line(int fd)
 	if ((bytes_read <= 0 && buf[0] == 0 && str[0] == 0) || !str)
 		return (free(str), NULL);
 	str = create_line(str, buf);
-	move_buf(buf);
-	return (str);
+	return (move_buf(buf), str);
 }
