@@ -6,7 +6,7 @@
 /*   By: enchevri <enchevri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 10:14:04 by enchevri          #+#    #+#             */
-/*   Updated: 2024/12/15 08:50:37 by enchevri         ###   ########.fr       */
+/*   Updated: 2024/12/15 12:16:07 by enchevri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ char	*ft_bzero(char *s, size_t end, size_t start)
 
 void	fill_tab(char *str, char *buf, char *tab)
 {
-	int	i;
-	int	j;
+	size_t	i;
+	size_t	j;
 
 	i = 0;
 	j = 0;
@@ -52,7 +52,7 @@ void	fill_tab(char *str, char *buf, char *tab)
 
 char	*create_line(char *str, char *buf)
 {
-	int		i;
+	size_t	i;
 	char	*tab;
 
 	i = 0;
@@ -65,7 +65,7 @@ char	*create_line(char *str, char *buf)
 
 void	move_buf(char *buf)
 {
-	int		i;
+	size_t	i;
 	size_t	new_buf_len;
 
 	i = 0;
@@ -84,16 +84,17 @@ char	*get_next_line(int fd)
 	ssize_t		bytes_read;
 	char		*str;
 
-	if (BUFFER_SIZE <= 0 || fd < 0)
-		return (NULL);
-	str = malloc(1);
-	str[0] = 0;
+	str = create_malloc();
+	if (BUFFER_SIZE <= 0 || fd < 0 || !str)
+		return (free(str), NULL);
 	bytes_read = 1;
-	while (ft_strchr_nl(buf) == NULL && bytes_read && bytes_read != -1)
+	while (ft_strchr_nl(buf) == 0 && bytes_read && bytes_read != -1)
 	{
 		if (buf[0])
 		{
 			str = ft_strjoin(str, buf);
+			if (!str)
+				return (free(str), NULL);
 			ft_bzero(buf, ft_strlen(buf), 0);
 		}
 		bytes_read = read(fd, buf, BUFFER_SIZE);
@@ -101,10 +102,9 @@ char	*get_next_line(int fd)
 			return (free(str), NULL);
 		buf[bytes_read] = '\0';
 	}
-	if (bytes_read <= 0 && buf[0] == 0 && str[0] == 0)
+	if ((bytes_read <= 0 && buf[0] == 0 && str[0] == 0) || !str)
 		return (free(str), NULL);
 	str = create_line(str, buf);
-	
 	move_buf(buf);
 	return (str);
 }

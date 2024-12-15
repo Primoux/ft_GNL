@@ -6,7 +6,7 @@
 /*   By: enchevri <enchevri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 10:14:01 by enchevri          #+#    #+#             */
-/*   Updated: 2024/12/14 18:35:41 by enchevri         ###   ########.fr       */
+/*   Updated: 2024/12/15 12:02:00 by enchevri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,28 +16,28 @@ size_t	ft_strlen(char *s)
 {
 	size_t	i;
 
-	i = 0;
 	if (!s)
 		return (0);
+	i = 0;
 	while (s[i])
 		i++;
 	return (i);
 }
 
-char	*ft_strchr_nl(char *s)
+int	ft_strchr_nl(char *s)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
-	while (s[i] || s[i] == '\n')
+	while (s[i])
 	{
 		if (s[i] == '\n')
 		{
-			return (&s[i]);
+			return (1);
 		}
 		i++;
 	}
-	return (NULL);
+	return (0);
 }
 
 char	*ft_memmove(char *dest, const char *src, size_t size)
@@ -81,13 +81,24 @@ char	*ft_strjoin(char *s1, char *s2)
 		tab[x] = s1[i++];
 		x++;
 	}
+	free(s1);
 	i = 0;
 	while (s2[i])
 	{
 		tab[x] = s2[i++];
 		x++;
 	}
-	free(s1);
 	tab[x] = '\0';
 	return (tab);
+}
+
+char	*create_malloc(void)
+{
+	char	*str;
+
+	str = malloc(sizeof(char));
+	if (!str)
+		return (NULL);
+	str[0] = '\0';
+	return (str);
 }
