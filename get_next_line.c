@@ -6,7 +6,7 @@
 /*   By: enchevri <enchevri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 10:14:04 by enchevri          #+#    #+#             */
-/*   Updated: 2024/12/16 09:22:16 by enchevri         ###   ########.fr       */
+/*   Updated: 2024/12/16 13:47:54 by enchevri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,8 @@ char	*get_next_line(int fd)
 			ft_bzero(buf, ft_strlen(buf), 0);
 		}
 		bytes_read = read(fd, buf, BUFFER_SIZE);
-		buf[bytes_read] = '\0';
+		if (bytes_read < 0)
+			return ((free(str), NULL));
 	}
 	if ((bytes_read <= 0 && buf[0] == 0 && str[0] == 0) || !str)
 		return (free(str), NULL);

@@ -6,7 +6,7 @@
 /*   By: enchevri <enchevri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 10:14:04 by enchevri          #+#    #+#             */
-/*   Updated: 2024/12/16 09:40:53 by enchevri         ###   ########.fr       */
+/*   Updated: 2024/12/16 13:51:07 by enchevri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ char	*get_next_line(int fd)
 	char		*str;
 
 	str = create_malloc();
-	if (BUFFER_SIZE <= 0 || fd < 0 || !str)
+	if (BUFFER_SIZE <= 0 || fd < 0 || !str || fd >= 1024)
 		return (free(str), NULL);
 	bytes_read = 1;
 	while (ft_strchr_nl(buf[fd]) == 0 && bytes_read > 0)
@@ -105,7 +105,8 @@ char	*get_next_line(int fd)
 			ft_bzero(buf[fd], ft_strlen(buf[fd]), 0);
 		}
 		bytes_read = read(fd, buf[fd], BUFFER_SIZE);
-		buf[fd][bytes_read] = '\0';
+		if (bytes_read < 0)
+			return ((free(str), NULL));
 	}
 	if ((bytes_read <= 0 && buf[fd][0] == 0 && str[0] == 0) || !str)
 		return (free(str), NULL);
