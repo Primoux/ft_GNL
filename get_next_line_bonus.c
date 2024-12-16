@@ -6,7 +6,7 @@
 /*   By: enchevri <enchevri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 10:14:04 by enchevri          #+#    #+#             */
-/*   Updated: 2024/12/15 19:30:05 by enchevri         ###   ########.fr       */
+/*   Updated: 2024/12/16 09:40:53 by enchevri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	fill_tab(char *str, char *buf, char *tab)
 		tab[j] = str[j];
 		j++;
 	}
-	free(str);
 	i = 0;
 	while (buf[i] != '\n' && buf[i])
 	{
@@ -48,29 +47,25 @@ void	fill_tab(char *str, char *buf, char *tab)
 	}
 	else
 		tab[j] = '\0';
+	free(str);
 }
 
 char	*create_line(char *str, char *buf)
 {
 	size_t	i;
 	char	*tab;
-	size_t	x;
 
 	i = 0;
-	x = 0;
 	tab = NULL;
 	if (!str || !buf)
-		return (NULL);
+		return (free(str), NULL);
 	while (buf[i] != '\n' && buf[i])
 		i++;
 	if (buf[i] == '\n')
-	{
 		i++;
-	}
-	while (!tab && x++ < 2)
-		tab = malloc((ft_strlen(str) + i + 1) * sizeof(char));
+	tab = malloc((ft_strlen(str) + i + 1) * sizeof(char));
 	if (!tab)
-		return (NULL);
+		return (free(str), NULL);
 	fill_tab(str, buf, tab);
 	return (tab);
 }
@@ -96,7 +91,6 @@ char	*get_next_line(int fd)
 	ssize_t		bytes_read;
 	char		*str;
 
-	str = NULL;
 	str = create_malloc();
 	if (BUFFER_SIZE <= 0 || fd < 0 || !str)
 		return (free(str), NULL);
@@ -106,11 +100,11 @@ char	*get_next_line(int fd)
 		if (buf[fd][0])
 		{
 			str = create_line(str, buf[fd]);
+			if (!str)
+				return (NULL);
 			ft_bzero(buf[fd], ft_strlen(buf[fd]), 0);
 		}
 		bytes_read = read(fd, buf[fd], BUFFER_SIZE);
-		if (bytes_read < 0)
-			return (free(str), NULL);
 		buf[fd][bytes_read] = '\0';
 	}
 	if ((bytes_read <= 0 && buf[fd][0] == 0 && str[0] == 0) || !str)

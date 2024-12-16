@@ -6,7 +6,7 @@
 /*   By: enchevri <enchevri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 10:14:04 by enchevri          #+#    #+#             */
-/*   Updated: 2024/12/15 19:57:38 by enchevri         ###   ########.fr       */
+/*   Updated: 2024/12/16 09:22:16 by enchevri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ void	fill_tab(char *str, char *buf, char *tab)
 
 	i = 0;
 	j = 0;
-	if (!str || !buf || !tab)
-		return ;
 	while (str[j])
 	{
 		tab[j] = str[j];
@@ -64,10 +62,7 @@ char	*create_line(char *str, char *buf)
 	while (buf[i] != '\n' && buf[i])
 		i++;
 	if (buf[i] == '\n')
-	{
-		printf("'%zu'", i);
 		i++;
-	}
 	tab = malloc((ft_strlen(str) + i + 1) * sizeof(char));
 	if (!tab)
 		return (free(str), NULL);
@@ -105,11 +100,11 @@ char	*get_next_line(int fd)
 		if (buf[0])
 		{
 			str = create_line(str, buf);
+			if (!str)
+				return (NULL);
 			ft_bzero(buf, ft_strlen(buf), 0);
 		}
 		bytes_read = read(fd, buf, BUFFER_SIZE);
-		if (bytes_read < 0)
-			return (free(str), NULL);
 		buf[bytes_read] = '\0';
 	}
 	if ((bytes_read <= 0 && buf[0] == 0 && str[0] == 0) || !str)

@@ -6,17 +6,15 @@
 /*   By: enchevri <enchevri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 14:47:27 by maximart          #+#    #+#             */
-/*   Updated: 2024/12/15 16:15:33 by enchevri         ###   ########.fr       */
+/*   Updated: 2024/12/16 09:19:18 by enchevri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-# include <fcntl.h>
-# include <stdio.h>
+// # include <fcntl.h>
 # include <stdlib.h>
-# include <string.h>
 # include <unistd.h>
 
 # ifndef BUFFER_SIZE
