@@ -6,11 +6,11 @@
 /*   By: enchevri <enchevri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 10:14:04 by enchevri          #+#    #+#             */
-/*   Updated: 2024/12/16 13:51:07 by enchevri         ###   ########.fr       */
+/*   Updated: 2024/12/17 08:33:42 by enchevri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*ft_bzero(char *s, size_t end, size_t start)
 {
@@ -56,7 +56,6 @@ char	*create_line(char *str, char *buf)
 	char	*tab;
 
 	i = 0;
-	tab = NULL;
 	if (!str || !buf)
 		return (free(str), NULL);
 	while (buf[i] != '\n' && buf[i])
@@ -108,7 +107,7 @@ char	*get_next_line(int fd)
 		if (bytes_read < 0)
 			return ((free(str), NULL));
 	}
-	if ((bytes_read <= 0 && buf[fd][0] == 0 && str[0] == 0) || !str)
+	if ((bytes_read == 0 && buf[fd][0] == 0 && str[0] == 0))
 		return (free(str), NULL);
 	str = create_line(str, buf[fd]);
 	return (move_buf(buf[fd]), str);
